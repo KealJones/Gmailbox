@@ -96,27 +96,10 @@ body._in,
 
 /* Toolbar form */
 ._in form#aso_search_form_anchor {
-  width: 66%;
-  position: absolute;
+  width: 100%;
   max-width: 1200px;
   border-radius: 2px !important;
   background: rgba(255, 255, 255, 0.15) !important;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-@media (max-width: 1632px) {
-  ._in form#aso_search_form_anchor {
-    max-width: 100% !important;
-    width: auto;
-  }
-}
-
-@media (max-width: 990px) {
-  ._in form#aso_search_form_anchor {
-    max-width: 100% !important;
-    width: auto;
-  }
 }
 
 /* Toolbar input field */
@@ -326,51 +309,57 @@ body._in,
 ._in .aeN {
   position: absolute !important;
 }
-._in .bhZ + .bkK {
-  margin-left: auto !important;
+._in .aeN:not(.bhZ) + .bkK {
+  margin-left: 272px !important;
+}
+@media (max-width: 1165px) {
+  ._in .aeN:not(.bhZ) + .bkK {
+    /* Compensate for Gmail right bar thing */
+    margin-right: 56px !important;
+  }
 }
 ._in .bkK {
   max-width: 1200px !important;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0 40px !important;
 }
-@media (max-width: 1632px) {
+
+@media (min-width: 920px) {
   ._in .bkK {
-    width: auto;
-    margin-left: 272px;
-    margin-right: auto;
-    padding-right: 104px;
+    min-width: 512px;
+    width: 840px !important;
+    margin: 0 auto !important;
   }
 }
-@media (max-width: 920px) {
-  ._in .bkK,
-  ._in .bhZ + .bkK {
-    width: 100% !important;
-    margin-left: 40px !important;
-    margin-right: 40px;
-    padding-right: 0;
-  }
-  ._in div:not(.bhZ) + .bkK {
-    margin-left: 272px !important;
+@media (min-width: 1260px) {
+  ._in .bkK {
+    width: 74% !important;
+    margin: 0 auto !important;
   }
 }
+@media (min-width: 1632px) {
+  ._in .aeN:not(.bhZ) + .bkK {
+    margin-left: auto !important;
+  }
+}
+
 ._in .bAw {
-  position: absolute !important;
+  position: relative !important;
   right: 0 !important;
   top: 0 !important;
 }
 
-@media (max-width: 1800px) {
-  ._in .bkK {
-    width: 66.66% !important;
+@media (max-width: 1259px) {
+  body.left-panel-active .aeN.bhZ + .bkK {
+    margin-left: 40px !important;
   }
 }
 
-@media (max-width: 1632px) {
-  ._in .bkK {
-    min-width: 512px;
-    margin-left: 272px;
-    margin-right: 55px;
-  }
+/* Categories */
+._in .aKh {
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
+  overflow: auto;
 }
 
 /* Section */
@@ -517,6 +506,7 @@ body._in,
 .gb_fe.gb_oe .gb_ce:not(.gb_Za) {
   display: flex;
   align-items: center;
+  padding: 0 20px;
 }
 
 /* Header/Search Bar */

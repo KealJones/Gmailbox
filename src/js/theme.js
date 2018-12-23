@@ -23,9 +23,25 @@ const setupMutationObserver = () => {
     handleTitle();
     handleNoNewMail();
     handleHashChange();
+    handleLeftPanel();
     removeScrollBarStyles();
   });
   observer.observe(document.body, {subtree: true, childList: true});
+};
+
+const handleLeftPanel = () => {
+  const observer = new MutationObserver(() => {
+    if (document.querySelector('.bq9')) {
+      if (document.querySelector('.bq9').className.includes('br3')) {
+        document.body.classList.remove('left-panel-active');
+      } else {
+        document.body.classList.add('left-panel-active');
+      }
+    }
+  });
+  if (document.querySelector('.bq9')) {
+    observer.observe(document.querySelector('.bq9'), {attributes: true});
+  }
 };
 
 const handleTitle = () => {
