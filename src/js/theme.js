@@ -78,9 +78,11 @@ const handleNoNewMail = () => {
   );
   var thisNoNewMail = noNewMails.iterateNext();
   if (thisNoNewMail) {
-    thisNoNewMail.className = thisNoNewMail.className + ' empty-art';
-    thisNoNewMail.parentElement.className =
-      thisNoNewMail.parentElement.className + ' empty-wrap';
+    if (!thisNoNewMail.className.includes('empty-art')) {
+      thisNoNewMail.className = thisNoNewMail.className + ' empty-art';
+      thisNoNewMail.parentElement.className =
+        thisNoNewMail.parentElement.className + ' empty-wrap';
+    }
   }
 };
 
