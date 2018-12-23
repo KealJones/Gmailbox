@@ -5,45 +5,62 @@ import '../css/theme.css';
 
 const init = (evt) => {
   setupNodes();
+  setupMutationObserver();
+  handleTitle();
   initMenu();
-  updateTitle();
+  handleNoNewMail();
+  removeScrollBarStyles();
   document.body.classList.toggle("_in");
 }
 
-const updateTitle = () => {
+const setupMutationObserver = () => {
   const observer = new MutationObserver(() => {
-    const { title } = _nodes;
-    let linkElements = document.querySelectorAll(".aim a");
-    if (title && linkElements.length > 0) {
-      handleHashChange();
-      observer.disconnect();
-    }
-    document.querySelectorAll('style:not(.scrollcheck)').forEach((element)=>{
+    handleTitle();
+    handleNoNewMail();
+    handleHashChange();
+    removeScrollBarStyles();
+  });
+  observer.observe(document.body, {subtree:true, childList:true});
+}
+
+const handleTitle = () => {
+  const { title } = _nodes;
+  if (title){
+    let titleImg = title.querySelector('img');
+    titleImg.src = 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_1x.png';
+    titleImg.srcset = 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_1x.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_2x.png 2x';
+    title.className = title.className+' white'
+  }
+}
+
+const removeScrollBarStyles = () => {
+  var styleTags = document.querySelectorAll('style:not(.scrollcheck)');
+  if(styleTags.length){
+    styleTags.forEach((element)=>{
       if (element.innerHTML.includes('scrollbar')){
         element.innerHTML = element.innerHTML.replace('scrollbar','nobar');
         element.className = element.className+' scrollcheck';
       }
     });
-    var noNewMails = document.evaluate("//td[text()='No new mail!']", document, null, XPathResult.ANY_TYPE, null );
-    var thisNoNewMail = noNewMails.iterateNext();
+  }
+}
+
+const handleNoNewMail = () => {
+  var noNewMails = document.evaluate("//td[text()='No new mail!']", document, null, XPathResult.ANY_TYPE, null );
+  var thisNoNewMail = noNewMails.iterateNext();
+  if (thisNoNewMail){
     thisNoNewMail.className = thisNoNewMail.className + ' empty-art';
     thisNoNewMail.parentElement.className = thisNoNewMail.parentElement.className + ' empty-wrap';
-  });
-  observer.observe(document.body, {subtree:true, childList:true});
+  }
 }
 
 const handleHashChange = (evt) => {
   let hash = window.location.hash;
   document.body.dataset.hash = hash;
-  const { title } = _nodes;
   let linkElement = document.querySelector(`.aim a[href$="${hash}"]`);
-  if (!title || !linkElement) {
+  if (!linkElement) {
     return;
   }
-  let titleImg = title.querySelector('img');
-  titleImg.src = 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_1x.png';
-  titleImg.srcset = 'https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_1x.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_2x.png 2x';
-  title.className = title.className+' white'
   setupSweepButtons();
 }
 
@@ -61,17 +78,11 @@ const setupSweepButtons = () => {
   })
 }
 
-/**
-
-*/
 const getMessageRowIsStarred = (elm) => {
   const starredButton = elm.querySelector(".T-KT");
   return starredButton && starredButton.classList.contains("T-KT-Jp");
 }
 
-/**
-
-*/
 const archiveMessageRow = (elm) => {
   const archiveButton = elm.querySelector(".brq");
   if (archiveButton) {
