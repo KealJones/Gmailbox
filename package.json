@@ -1,6 +1,6 @@
 {
   "name": "Gmailbox",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A Gmail Inbox Theme",
   "scripts": {
     "build": "node utils/build.js",
