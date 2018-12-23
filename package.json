@@ -4,7 +4,8 @@
   "description": "A Gmail Inbox Theme",
   "scripts": {
     "build": "node utils/build.js",
-    "start": "node utils/webserver.js"
+    "start": "node utils/webserver.js",
+    "format": "prettier --config .prettierrc --write src/**/*"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.17",

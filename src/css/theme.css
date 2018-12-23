@@ -344,9 +344,15 @@ body._in,
 }
 
 ._in .bAw {
-  position: absolute !important;
+  position: relative !important;
   right: 0 !important;
   top: 0 !important;
+}
+
+@media (max-width: 1259px) {
+  body.left-panel-active .aeN.bhZ + .bkK {
+    margin-left: 40px !important;
+  }
 }
 
 /* Categories */
