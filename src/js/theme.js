@@ -5,7 +5,7 @@ import {
   setupClickEventForNodes,
 } from './theme/menu';
 import {setupNodes, _nodes} from './theme/nodes';
-import {queryParentSelector} from './theme/predef';
+import {queryParentSelector, contains} from './theme/predef';
 import '../css/theme.css';
 
 const init = evt => {
@@ -24,7 +24,6 @@ const setupMutationObserver = () => {
     handleNoNewMail();
     handleHashChange();
     handleLeftPanel();
-    removeScrollBarStyles();
   });
   observer.observe(document.body, {subtree: true, childList: true});
 };
@@ -57,32 +56,26 @@ const handleTitle = () => {
 };
 
 const removeScrollBarStyles = () => {
-  var styleTags = document.querySelectorAll('style:not(.scrollcheck)');
-  if (styleTags.length) {
-    styleTags.forEach(element => {
-      if (element.innerHTML.includes('scrollbar')) {
+  const observer = new MutationObserver(() => {
+    var scollStyleTags = contains('style', 'scrollbar');
+    if (scollStyleTags.length) {
+      scollStyleTags.forEach(element => {
         element.innerHTML = element.innerHTML.replace('scrollbar', 'nobar');
-        element.className = element.className + ' scrollcheck';
-      }
-    });
-  }
+      });
+    }
+  });
+  observer.observe(document.head, {subtree: true, childList: true});
 };
 
 const handleNoNewMail = () => {
-  var noNewMails = document.evaluate(
-    "//td[text()='No new mail!']",
-    document,
-    null,
-    XPathResult.ANY_TYPE,
-    null,
-  );
-  var thisNoNewMail = noNewMails.iterateNext();
-  if (thisNoNewMail) {
-    if (!thisNoNewMail.className.includes('empty-art')) {
-      thisNoNewMail.className = thisNoNewMail.className + ' empty-art';
-      thisNoNewMail.parentElement.className =
-        thisNoNewMail.parentElement.className + ' empty-wrap';
-    }
+  var thisNoNewMail = contains('td', 'No new mail!');
+  if (thisNoNewMail.length) {
+    thisNoNewMail.forEach(element => {
+      if (!element.className.includes('empty-art')) {
+        element.classList.add('empty-art');
+        element.parentElement.classList.add('empty-wrap');
+      }
+    });
   }
 };
 
