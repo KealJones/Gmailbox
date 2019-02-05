@@ -40,7 +40,6 @@ body._in,
 /* Toolbar background */
 ._in header {
   background-color: #898984 !important;
-  height: 56px;
 }
 ._in[data-hash*='#inbox'] header {
   background-color: #4285f4 !important;
@@ -64,7 +63,21 @@ body._in,
   position: fixed;
   width: 104%;
   pointer-events: none;
+    display: block;
+    height: 0;
 }
+._in header:after {
+  content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+}
+._in header .gb_0d,
+._in header .gb_de,
+._in header .gb_0d > * {
+  height: 100% !important;
+}
+
 
 /* Toolbar icons */
 ._in header svg {
@@ -98,8 +111,27 @@ body._in,
 ._in form#aso_search_form_anchor {
   width: 100%;
   max-width: 1200px;
+  height: 38px;
   border-radius: 2px !important;
   background: rgba(255, 255, 255, 0.15) !important;
+}
+._in form#aso_search_form_anchor.gb_df {
+  border: 1px solid #fff !important;
+  background: rgba(255,255,255,1) !important;
+  color: #000 !important;
+  box-shadow: 0px 0px 300px 800px rgba(246, 246, 246, 1) !important;
+}
+._in form#aso_search_form_anchor.gb_df input[name='q'] {
+  color: #000;
+  filter: invert(0%);
+}
+._in form#aso_search_form_anchor.gb_df svg {
+  fill: #000 !important;
+}
+.gb_Wc.gb_ne.gb_we.gb_te .gb_ke {
+  height: auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Toolbar input field */
@@ -511,7 +543,8 @@ body._in,
 /* Header/Search Bar */
 .gb_xf,
 .gb_Of,
-.gb_ce {
+.gb_ce,
+.gb_Pf {
   height: 36px !important;
 }
 
